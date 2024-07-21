@@ -15,7 +15,7 @@ TetrisBlock::TetrisBlock(BlockType blockType) {
 
 // ----- getters -----
 
-BlockType& TetrisBlock::getBlockType() {
+const BlockType& TetrisBlock::getBlockType() {
     return type;
 }
 
@@ -27,7 +27,7 @@ array<Point, 4>& TetrisBlock::getPrevCoords() {
     return prevCoords;
 }
 
-bool TetrisBlock::isNeedRedraw() {
+const bool TetrisBlock::isNeedRedraw() {
     return needRedraw;
 }
 
@@ -50,6 +50,13 @@ void TetrisBlock::increaseRow() {
     array<Point, 4>& curCoords = getCoords();
     for (int i = 0; i < getCoords().size(); i++) {
         curCoords[i].increaseRow();
+    }
+}
+
+void TetrisBlock::decreaseRow() {
+    array<Point, 4>& curCoords = getCoords();
+    for (int i = 0; i < getCoords().size(); i++) {
+        curCoords[i].decreaseRow();
     }
 }
 

@@ -1,3 +1,4 @@
+#include "config.h"
 #include "TetrisBlock.h"
 #include "LBlock.h"
 #include "CLIManager.h"
@@ -17,12 +18,14 @@ class GameState {
     private:
         static const int ROWS = 22, COLS = 10;
         static const int HIDDEN_ROWS = 2;
-        static const int FIRST_VISIBLE_ROW = 2; 
+        static const int FIRST_VISIBLE_ROW = 2;
+        static const int borderLeftWidth = 1;
+        static const int borderTopWidth = 1;
         string emptyRow = "                    "; // ROWS * emptySquare
         bool stateArray[ROWS][COLS] = {};
         string emptySquare = "  "; // indicating no block
         string fullSquare = "[]";  // indicating a block
-        TetrisBlock* currentBlock;
+        TetrisBlock* curBlock;
         TetrisBlock* nextBlock;
         uint64_t lastBlockFallTime;
 
@@ -35,4 +38,8 @@ class GameState {
         void drawCurrentBlock();
         void clearCurrentBlock();
         void drawSymbols(const array<Point, 4>& coords, const string& symbolToDraw);
+        void curBlockTryFall();
+        void lockInFallingBlock();
+        void nextRandomBlock();
+        
 };

@@ -11,11 +11,11 @@ class Point {
         Point(int row, int col) : row(row), col(col) {}
 
         // ----- getters -----
-        int getRow() {
+        const int getRow() {
             return row;
         }
 
-        int getCol() {
+        const int getCol() {
             return col;
         }
 
@@ -30,6 +30,10 @@ class Point {
 
         void increaseRow() {
             row += 1;
+        }
+
+        void decreaseRow() {
+            row -= 1;
         }
 };
 

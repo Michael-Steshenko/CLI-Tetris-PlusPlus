@@ -4,34 +4,61 @@
 
 GameState::GameState() {
     hideCursor();
-    //LBlock newBlock = LBlock();
-    currentBlock = new LBlock();
-
+    curBlock = new LBlock();
+    nextBlock = new LBlock();
+    drawUIBorder();
+    drawCurrentBlock();
     updateLastBlockFallTime(timeSinceEpochMillisec());
-
-/*     stateArray[5][5] = true;
-    stateArray[4][4] = true; */
 }
 
 void GameState::update() {
     uint64_t curTime = timeSinceEpochMillisec();
     
     // if a second passed set the new block coordinates and remember the coordinates to clear
-    if (curTime  - lastBlockFallTime > 1000 ) {
+    if (curTime  - lastBlockFallTime > 300 ) {
         updateLastBlockFallTime(curTime);
-        currentBlock->setNeedRedraw(true);
+        curBlock->setNeedRedraw(true);
         
-        // create a deep copy of current block coords and assign them to prevCoords
-        array<Point, 4> currentBlockCoordsCopy = currentBlock->getCoords();
-        currentBlock->getPrevCoords() = currentBlockCoordsCopy;
-        
-        currentBlock->increaseRow();
+        array<Point, 4> currentBlockCoordsCopy = curBlock->getCoords();
+        curBlock->getPrevCoords() = currentBlockCoordsCopy;
+        curBlockTryFall();
+        drawCurrentBlock();
     }
 }
 
+// try to make the current block fall, if it can fall update the row and return true, otherwise lock the block in place and return false
+void GameState::curBlockTryFall() {
+    curBlock->increaseRow();
+    array<Point, 4>& coords = curBlock->getCoords();
+    for (Point& point: coords) {
+        if (point.getRow() >= ROWS) {
+            lockInFallingBlock();
+        } else if (stateArray[point.getRow()][point.getCol()]) {    // this is dangerous, no bound checks for col
+            lockInFallingBlock();
+        }
+    }
+}
+
+// notice that we lock the previous position of the falling block, because if we reach here, it means we updated the current position of the falling block and it was taken.
+void GameState::lockInFallingBlock() {
+    array<Point, 4>& coords = curBlock->getPrevCoords();
+    for (Point& point: coords) {
+        stateArray[point.getRow()][point.getCol()] = true;
+    }
+/*     // since we're getting rid of the block, we won't get the chance to draw it later.
+    drawCurrentBlock(); */
+    nextRandomBlock();
+}
+
+void GameState::nextRandomBlock() {
+   curBlock = nextBlock;
+   nextBlock = new LBlock();    // randomly choose a block to create here when we support more Block types
+}
+
 void GameState::drawState() {
-    /*moveCursor(2, 2);
-     for (int row = FIRST_VISIBLE_ROW; row < ROWS; row++) {
+    
+/*     moveCursor(2, 2);
+    for (int row = FIRST_VISIBLE_ROW; row < ROWS; row++) {
         moveCursor(row + FIRST_VISIBLE_ROW, 2);
         for (int col = 0; col < COLS; col++) {
             if(stateArray[row][col]) {
@@ -41,53 +68,62 @@ void GameState::drawState() {
             }
         }
     } */
+
     drawCurrentBlock();
 }
 
 // clears current block from screen without checks
 void GameState::clearCurrentBlock() {
-    array<Point, 4>& prevBlockCoords = currentBlock->getPrevCoords();
+    array<Point, 4>& prevBlockCoords = curBlock->getPrevCoords();
     drawSymbols(prevBlockCoords, emptySquare);
 }
 
 // draws current block if it needs a redraw and clears previous position
 void GameState::drawCurrentBlock() {
-    if (!currentBlock->isNeedRedraw()) {
+    if (!curBlock->isNeedRedraw()) {
         return;
     }
     clearCurrentBlock();
-    array<Point, 4>& currentBlockCoords = currentBlock->getCoords();
+    array<Point, 4>& currentBlockCoords = curBlock->getCoords();
     drawSymbols(currentBlockCoords, fullSquare);
-    currentBlock->setNeedRedraw(false);
+    curBlock->setNeedRedraw(false);
     cout << flush;
 }
 
 // draws symbolToDraw, at the board positions indicated by coords
 void GameState::drawSymbols(const array<Point, 4>& coords, const string& symbolToDraw) {
     for (Point point : coords) {
-        if (point.getRow() < HIDDEN_ROWS) {
+        if ( (point.getRow() < HIDDEN_ROWS) && !SHOW_HIDDEN_ROWS) {
             continue;
         }
-        moveCursor(point.getRow() + 2, point.getCol() + 2);
+        int rowOffset = 0;
+        if (!SHOW_HIDDEN_ROWS) {
+            rowOffset = HIDDEN_ROWS;
+        }
+        // for example, when SHOW_HIDDEN_ROWS == false, a point at 3,3, should be drawn at 1, 3
+        moveCursor(point.getRow() + borderTopWidth - rowOffset, point.getCol() + borderLeftWidth);
         cout << symbolToDraw;
     }
 }
 
 void GameState::drawUIBorder() {
+    int rows = ROWS;
+    if (!SHOW_HIDDEN_ROWS) {
+        rows = ROWS - HIDDEN_ROWS;
+    }
+
     // draws all the static elements of the game, border, static text etc.
-    moveCursor(1, 1);
+    moveCursor(0, 0);
     cout << "┌────────────────────┐" << endl;
-    for (int row = 0; row < ROWS; row++) {
-        //moveCursor(row + 1, 0);
+    for (int row = 0; row < rows; row++) {
         cout << "|" << emptyRow << "|" << endl;
     }
-    //moveCursor(rows, 0);
     cout << "└────────────────────┘" << endl;
 }
 
-// top left is considered 1, 1
 void GameState::moveCursor(int row, int column) {
-    string moveString = "\033[" + to_string(row) +";" + to_string(column) + "H";
+    // + 1 because top left row is considered 1, 1, and we want to work with 0-index, like normal people
+    string moveString = "\033[" + to_string(row + 1) +";" + to_string(column + 1) + "H";
     cout << moveString;
 }
 

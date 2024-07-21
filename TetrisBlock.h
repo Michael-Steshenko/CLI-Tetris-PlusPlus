@@ -33,11 +33,11 @@ class TetrisBlock {
         TetrisBlock(BlockType blockType);
 
         // ----- getters -----
-        Point& getCenter();
-        BlockType& getBlockType();
+        const Point& getCenter();
+        const BlockType& getBlockType();
         array<Point, 4>& getCoords();
         array<Point, 4>& getPrevCoords();
-        bool isNeedRedraw();
+        const bool isNeedRedraw();
 
         // ----- setters -----
         void setBlockType(BlockType& newBlockType);
@@ -45,6 +45,7 @@ class TetrisBlock {
 
         // ----- logic -----
         void increaseRow();
+        void decreaseRow();
         virtual void rotate();
 };
 
