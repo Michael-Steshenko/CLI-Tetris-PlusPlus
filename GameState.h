@@ -35,10 +35,4 @@ class GameState {
         void drawCurrentBlock();
         void clearCurrentBlock();
         void drawSymbols(const array<Point, 4>& coords, const string& symbolToDraw);
-
-    private:
-
-    
-
-
 };
