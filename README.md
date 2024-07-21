@@ -10,3 +10,5 @@ Feel free to do whatever you want with it.
 - Alternatively run g++ `g++ -o tetris.out *.cpp`
 
 # TODO
+
+- When debugging, stopping with `CTRL + C` does not restore the cursor.
