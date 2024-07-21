@@ -93,10 +93,6 @@ void GameState::moveCursor(int row, int column) {
     cout << moveString;
 }
 
-void GameState::hideCursor() {
-    cout << "\033[?25l";
-}
-
 uint64_t GameState::timeSinceEpochMillisec() {
   using namespace chrono;
   return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();

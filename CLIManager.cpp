@@ -9,3 +9,11 @@ void clearScreen() {
     cout << "\033[H";
     cout << flush;
 }
+
+void hideCursor() {
+    cout << "\033[?25l";
+}
+
+void showCursor() {
+    cout << "\033[?25h";
+}

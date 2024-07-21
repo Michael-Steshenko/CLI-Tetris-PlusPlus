@@ -1,5 +1,6 @@
 #include "TetrisBlock.h"
 #include "LBlock.h"
+#include "CLIManager.h"
 #include <iostream>
 #include <chrono>
 #include <memory>
@@ -28,7 +29,6 @@ class GameState {
     
     private:
         void moveCursor(int row, int col);
-        void hideCursor();
         uint64_t timeSinceEpochMillisec();
         uint64_t getLastPieceFallTime();
         void updateLastBlockFallTime(uint64_t time);
