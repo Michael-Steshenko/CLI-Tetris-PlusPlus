@@ -15,21 +15,19 @@ GameState::GameState() {
 
 void GameState::update() {
     uint64_t curTime = timeSinceEpochMillisec();
+    
+    // if a second passed set the new block coordinates and remember the coordinates to clear
     if (curTime  - lastBlockFallTime > 1000 ) {
         updateLastBlockFallTime(curTime);
         currentBlock->setNeedRedraw(true);
-        array<Point, 4>& currentBlockCoords = currentBlock->getCoords();
         
+        // create a deep copy of current block coords and assign them to prevCoords
         array<Point, 4> currentBlockCoordsCopy = currentBlock->getCoords();
-
         currentBlock->getPrevCoords() = currentBlockCoordsCopy;
-        // if a second passed set the new block coordinates and remember the coordinates to clear
-        for (int i = 0; i < sizeof(currentBlockCoords); i++) {
-            currentBlockCoords[i].increaseRow();
-        }
+        
+        currentBlock->increaseRow();
     }
 }
-
 
 void GameState::drawState() {
     /*moveCursor(2, 2);

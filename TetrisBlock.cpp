@@ -46,3 +46,10 @@ void TetrisBlock::rotate() {
     throw runtime_error("rotate() not implemented for this block type");
 }
 
+void TetrisBlock::increaseRow() {
+    array<Point, 4>& curCoords = getCoords();
+    for (int i = 0; i < getCoords().size(); i++) {
+        curCoords[i].increaseRow();
+    }
+}
+

@@ -26,6 +26,8 @@ class TetrisBlock {
         std::array<Point, 4> coords;
         std::array<Point, 4> prevCoords;
 
+    protected:
+
     public:
         TetrisBlock();
         TetrisBlock(BlockType blockType);
@@ -42,6 +44,7 @@ class TetrisBlock {
         void setNeedRedraw(bool newVal);
 
         // ----- logic -----
+        void increaseRow();
         virtual void rotate();
 };
 
