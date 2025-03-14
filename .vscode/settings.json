@@ -48,6 +48,14 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "csignal": "cpp"
+    "csignal": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__node_handle": "cpp",
+    "complex": "cpp",
+    "forward_list": "cpp",
+    "queue": "cpp",
+    "stack": "cpp",
+    "variant": "cpp"
   }
 }

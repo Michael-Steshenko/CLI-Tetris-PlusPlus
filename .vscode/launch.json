@@ -15,8 +15,7 @@
       "setupCommands": [
         {
           "description": "Enable pretty-printing for lldb",
-          "text": "settings set target.pretty-printing true",
-          "ignoreFailures": false
+          "text": "settings set target.pretty-printing true"
         }
       ],
       "preLaunchTask": "Build Project"
