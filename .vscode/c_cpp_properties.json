@@ -1,16 +1,25 @@
 {
-    "configurations": [
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [],
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64"
-        }
-    ],
-    "version": 4
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": ["${workspaceFolder}/src"],
+      "defines": [],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c17",
+      "cppStandard": "gnu++23",
+      "intelliSenseMode": "linux-gcc-x64",
+      "configurationProvider": "ms-vscode.cmake-tools"
+    },
+    {
+      "name": "Mac",
+      "includePath": ["${workspaceFolder}/src"],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c17",
+      "cppStandard": "gnu++23",
+      "intelliSenseMode": "macos-clang-x64",
+      "configurationProvider": "ms-vscode.cmake-tools"
+    }
+  ],
+  "version": 4
 }
