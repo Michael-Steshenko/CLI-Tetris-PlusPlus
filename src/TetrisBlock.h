@@ -14,7 +14,8 @@ enum BlockType {
     O,
     S,
     T,
-    Z
+    Z,
+    END,
 };
 
 class TetrisBlock {
@@ -40,7 +41,7 @@ class TetrisBlock {
         const bool isNeedRedraw();
 
         // ----- setters -----
-        void setBlockType(BlockType& newBlockType);
+        void setBlockType(BlockType newBlockType);
         void setNeedRedraw(bool newVal);
 
         // ----- logic -----

@@ -25,8 +25,8 @@ class GameState {
         bool stateArray[ROWS][COLS] = {};
         string emptySquare = "  "; // indicating no block
         string fullSquare = "[]";  // indicating a block
-        TetrisBlock* curBlock;
-        TetrisBlock* nextBlock;
+        TetrisBlock curBlock;
+        TetrisBlock nextBlock;
         uint64_t lastBlockFallTime;
 
     
@@ -40,6 +40,7 @@ class GameState {
         void drawSymbols(const array<Point, 4>& coords, const string& symbolToDraw);
         void curBlockTryFall();
         void lockInFallingBlock();
-        void nextRandomBlock();
-        
+        TetrisBlock getRandomBlock();
+        void getNextBlock();
+    
 };

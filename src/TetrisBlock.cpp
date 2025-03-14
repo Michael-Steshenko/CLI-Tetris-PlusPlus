@@ -1,10 +1,12 @@
 #include "TetrisBlock.h"
 #include <stdexcept>
+#include "LBlock.h"
+
+#include <cstdlib>
+
 
 TetrisBlock::TetrisBlock() {
     Point center = Point(0,0);
-    BlockType blockType = BlockType::I;
-    setBlockType(blockType);
     needRedraw = true;
 }
 
@@ -33,7 +35,7 @@ const bool TetrisBlock::isNeedRedraw() {
 
 // ----- setters -----
 
-void TetrisBlock::setBlockType(BlockType& newBlockType) {
+void TetrisBlock::setBlockType(BlockType newBlockType) {
     type = newBlockType;
 }
 
@@ -42,6 +44,7 @@ void TetrisBlock::setNeedRedraw(bool newVal) {
 }
 
 // ----- logic -----
+
 void TetrisBlock::rotate() {
     throw runtime_error("rotate() not implemented for this block type");
 }

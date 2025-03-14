@@ -4,8 +4,8 @@
 
 GameState::GameState() {
     hideCursor();
-    curBlock = new LBlock();
-    nextBlock = new LBlock();
+    curBlock = getRandomBlock();
+    nextBlock = getRandomBlock();
     drawUIBorder();
     drawCurrentBlock();
     updateLastBlockFallTime(timeSinceEpochMillisec());
@@ -17,10 +17,10 @@ void GameState::update() {
     // if a second passed set the new block coordinates and remember the coordinates to clear
     if (curTime  - lastBlockFallTime > 300 ) {
         updateLastBlockFallTime(curTime);
-        curBlock->setNeedRedraw(true);
+        curBlock.setNeedRedraw(true);
         
-        array<Point, 4> currentBlockCoordsCopy = curBlock->getCoords();
-        curBlock->getPrevCoords() = currentBlockCoordsCopy;
+        array<Point, 4> currentBlockCoordsCopy = curBlock.getCoords();
+        curBlock.getPrevCoords() = currentBlockCoordsCopy;
         curBlockTryFall();
         drawCurrentBlock();
     }
@@ -28,8 +28,8 @@ void GameState::update() {
 
 // try to make the current block fall, if it can fall update the row and return true, otherwise lock the block in place and return false
 void GameState::curBlockTryFall() {
-    curBlock->increaseRow();
-    array<Point, 4>& coords = curBlock->getCoords();
+    curBlock.increaseRow();
+    array<Point, 4>& coords = curBlock.getCoords();
     for (Point& point: coords) {
         if (point.getRow() >= ROWS) {
             lockInFallingBlock();
@@ -41,18 +41,32 @@ void GameState::curBlockTryFall() {
 
 // notice that we lock the previous position of the falling block, because if we reach here, it means we updated the current position of the falling block and it was taken.
 void GameState::lockInFallingBlock() {
-    array<Point, 4>& coords = curBlock->getPrevCoords();
+    array<Point, 4>& coords = curBlock.getPrevCoords();
     for (Point& point: coords) {
         stateArray[point.getRow()][point.getCol()] = true;
     }
 /*     // since we're getting rid of the block, we won't get the chance to draw it later.
     drawCurrentBlock(); */
-    nextRandomBlock();
+    getNextBlock();
 }
 
-void GameState::nextRandomBlock() {
-   curBlock = nextBlock;
-   nextBlock = new LBlock();    // randomly choose a block to create here when we support more Block types
+TetrisBlock GameState::getRandomBlock() {
+    BlockType blockType = BlockType(std::rand() % BlockType::END); // Adjust the range based on the number of block types
+
+    switch (blockType) {
+        case BlockType::I:
+            return LBlock();
+            break;
+        // Add cases for other block types here
+        default:
+            return LBlock();
+            break;
+        }
+}
+
+void GameState::getNextBlock() {
+    curBlock = nextBlock;
+    nextBlock = getRandomBlock();
 }
 
 void GameState::drawState() {
@@ -74,19 +88,19 @@ void GameState::drawState() {
 
 // clears current block from screen without checks
 void GameState::clearCurrentBlock() {
-    array<Point, 4>& prevBlockCoords = curBlock->getPrevCoords();
+    array<Point, 4>& prevBlockCoords = curBlock.getPrevCoords();
     drawSymbols(prevBlockCoords, emptySquare);
 }
 
 // draws current block if it needs a redraw and clears previous position
 void GameState::drawCurrentBlock() {
-    if (!curBlock->isNeedRedraw()) {
+    if (!curBlock.isNeedRedraw()) {
         return;
     }
     clearCurrentBlock();
-    array<Point, 4>& currentBlockCoords = curBlock->getCoords();
+    array<Point, 4>& currentBlockCoords = curBlock.getCoords();
     drawSymbols(currentBlockCoords, fullSquare);
-    curBlock->setNeedRedraw(false);
+    curBlock.setNeedRedraw(false);
     cout << flush;
 }
 
