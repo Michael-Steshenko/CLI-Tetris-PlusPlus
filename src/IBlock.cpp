@@ -1,6 +1,6 @@
-#include "LBlock.h"
+#include "IBlock.h"
 
-LBlock::LBlock() {
+IBlock::IBlock() {
     setBlockType(BlockType::L);
     coords[0] = Point(0, 6);
     coords[1] = Point(0, 8);
@@ -8,6 +8,6 @@ LBlock::LBlock() {
     coords[3] = Point(0, 12);
 }
 
-void LBlock::rotate() {
+void IBlock::rotate() {
 
 }

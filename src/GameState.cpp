@@ -55,11 +55,11 @@ TetrisBlock GameState::getRandomBlock() {
 
     switch (blockType) {
         case BlockType::I:
-            return LBlock();
+            return IBlock();
             break;
         // Add cases for other block types here
         default:
-            return LBlock();
+            return IBlock();
             break;
         }
 }

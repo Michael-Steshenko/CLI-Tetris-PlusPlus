@@ -1,9 +1,6 @@
 #include "TetrisBlock.h"
 #include <stdexcept>
-#include "LBlock.h"
-
-#include <cstdlib>
-
+#include "IBlock.h"
 
 TetrisBlock::TetrisBlock() {
     Point center = Point(0,0);

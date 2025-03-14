@@ -1,10 +1,10 @@
 #include "TetrisBlock.h"
 
-class LBlock : public TetrisBlock {
+class IBlock : public TetrisBlock {
     private:
         
 
     public:
-        LBlock();
+        IBlock();
         void rotate();
 };
