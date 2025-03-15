@@ -1,13 +1,14 @@
 # CLI-Tetris++
 
 Command line tetris for Linux / WSL / MacOS.  
-This is just a for fun project and will be rewritten in C and Go for comparison.  
-Feel free to do whatever you want with it.
+This is just a for fun project, feel free to do whatever you want with it.
 
 # Building
 
+I am using CMake, you can simply run:  
 `sh build.sh`
 
-# TODO
+# Debugging
+I use the CMake Debug launch configuration (only tested on mac)
 
-- When debugging, stopping with `CTRL + C` does not restore the cursor.
+# TODO
