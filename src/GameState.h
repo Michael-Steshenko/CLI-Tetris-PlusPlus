@@ -21,9 +21,9 @@ class GameState {
         static const int FIRST_VISIBLE_ROW = 2;
         static const int borderLeftWidth = 1;
         static const int borderTopWidth = 1;
-        string emptyRow = "                    "; // COLS * emptySquare
+        string emptyRow = " . . . . . . . . . ."; // COLS * emptySquare
         bool stateArray[ROWS][COLS] = {};
-        string emptySquare = "  "; // indicating no block
+        string emptySquare = " ."; // indicating no block
         string fullSquare = "[]";  // indicating a block
         TetrisBlock curBlock;
         TetrisBlock nextBlock;
