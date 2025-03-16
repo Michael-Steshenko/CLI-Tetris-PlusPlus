@@ -1,6 +1,4 @@
 #include "GameState.h"
-#include <algorithm>
-
 
 GameState::GameState() {
     hideCursor();
@@ -56,6 +54,9 @@ TetrisBlock GameState::getRandomBlock() {
     switch (blockType) {
         case BlockType::I:
             return IBlock();
+            break;
+        case BlockType::L:
+            return LBlock();
             break;
         // Add cases for other block types here
         default:
