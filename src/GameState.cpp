@@ -107,7 +107,7 @@ void GameState::drawCurrentBlock() {
 // draws symbolToDraw, at the board positions indicated by coords
 void GameState::drawSymbols(const array<Point, 4>& coords, const string& symbolToDraw) {
     for (Point point : coords) {
-        if ( (point.getRow() < HIDDEN_ROWS) && !SHOW_HIDDEN_ROWS) {
+        if ( !SHOW_HIDDEN_ROWS && (point.getRow() < HIDDEN_ROWS) ) {
             continue;
         }
         int rowOffset = 0;
