@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include <random>
 
 GameState::GameState() {
     hideCursor();
@@ -49,8 +50,11 @@ void GameState::lockInFallingBlock() {
 }
 
 TetrisBlock GameState::getRandomBlock() {
-    BlockType blockType = BlockType(std::rand() % BlockType::END); // Adjust the range based on the number of block types
+    static std::random_device rd;     // Only used once to initialise (seed) engine
+    static std::mt19937 rng(rd());    // Random-number engine used (Mersenne-Twister in this case)
+    static std::uniform_int_distribution<int> uni(0, BlockType::END);
 
+    BlockType blockType = BlockType(uni(rng)); // Adjust the range based on the number of block types
     switch (blockType) {
         case BlockType::I:
             return IBlock();
