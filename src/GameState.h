@@ -1,6 +1,6 @@
 #include "config.h"
-#include "TetrisBlock.h"
-#include "IBlock.h"
+#include "TetrisPieces/TetrisBlock.h"
+#include "TetrisPieces/IBlock.h"
 #include "CLIManager.h"
 #include <iostream>
 #include <chrono>

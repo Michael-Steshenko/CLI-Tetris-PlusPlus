@@ -6,5 +6,4 @@ class IBlock : public TetrisBlock {
 
     public:
         IBlock();
-        void rotate();
 };

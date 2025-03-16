@@ -43,7 +43,7 @@ void TetrisBlock::setNeedRedraw(bool newVal) {
 // ----- logic -----
 
 void TetrisBlock::rotate() {
-    throw runtime_error("rotate() not implemented for this block type");
+    throw runtime_error("rotate() not implemented");
 }
 
 void TetrisBlock::increaseRow() {

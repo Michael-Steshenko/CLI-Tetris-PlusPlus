@@ -47,7 +47,7 @@ class TetrisBlock {
         // ----- logic -----
         void increaseRow();
         void decreaseRow();
-        virtual void rotate();
+        void rotate();
 };
 
 #endif

@@ -7,7 +7,3 @@ IBlock::IBlock() {
     coords[2] = Point(0, 10);
     coords[3] = Point(0, 12);
 }
-
-void IBlock::rotate() {
-
-}
