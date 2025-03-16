@@ -1,12 +1,18 @@
 #include "config.h"
 #include "TetrisPieces/TetrisBlock.h"
 #include "TetrisPieces/IBlock.h"
+#include "TetrisPieces/JBlock.h"
 #include "TetrisPieces/LBlock.h"
+#include "TetrisPieces/OBlock.h"
+#include "TetrisPieces/SBlock.h"
+#include "TetrisPieces/TBlock.h"
+#include "TetrisPieces/ZBlock.h"
 #include "CLIManager.h"
 #include <iostream>
 #include <chrono>
 #include <memory>
 #include <algorithm>
+#include <random>
 
 class GameState {
     public:
