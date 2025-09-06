@@ -31,8 +31,8 @@ class GameState {
         static const int borderTopWidth = 1;
         const string emptyRow = " . . . . . . . . . ."; // COLS * emptySquare
         bool stateArray[ROWS][COLS] = {};
-        const string emptySquare = " ."; // indicating no block
-        const string fullSquare = "[]";  // indicating a block
+        const string emptySquare = " ."; // indicating a vaccant space
+        const string fullSquare = "[]";  // indicating a taken space
         static const int blockWidth = 2; // in characters 
         TetrisBlock curBlock;
         TetrisBlock nextBlock;

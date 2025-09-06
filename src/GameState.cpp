@@ -58,7 +58,7 @@ TetrisBlock GameState::getRandomBlock() {
     static std::mt19937 rng(rd());    // Random-number engine used (Mersenne-Twister in this case)
     static std::uniform_int_distribution<int> uni(0, BlockType::END - 1);
 
-    BlockType blockType = BlockType(uni(rng)); // Adjust the range based on the number of block types
+    BlockType blockType = BlockType(uni(rng));
     switch (blockType) {
         case BlockType::I:
             return IBlock();
@@ -81,7 +81,6 @@ TetrisBlock GameState::getRandomBlock() {
         case BlockType::Z:
             return ZBlock();
             break;
-        // Add cases for other block types here
         default:
             return IBlock();
             break;
