@@ -29,10 +29,11 @@ class GameState {
         static const int FIRST_VISIBLE_ROW = 2;
         static const int borderLeftWidth = 1;
         static const int borderTopWidth = 1;
-        string emptyRow = " . . . . . . . . . ."; // COLS * emptySquare
+        const string emptyRow = " . . . . . . . . . ."; // COLS * emptySquare
         bool stateArray[ROWS][COLS] = {};
-        string emptySquare = " ."; // indicating no block
-        string fullSquare = "[]";  // indicating a block
+        const string emptySquare = " ."; // indicating no block
+        const string fullSquare = "[]";  // indicating a block
+        static const int blockWidth = 2; // in characters 
         TetrisBlock curBlock;
         TetrisBlock nextBlock;
         uint64_t lastBlockFallTime;

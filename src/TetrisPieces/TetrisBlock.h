@@ -2,8 +2,8 @@
 #define TETRIS_BLOCK_H
 
 #include <utility>
-#include "Point.h"
 #include <array>
+#include <Point.h>
 
 using namespace std;
 

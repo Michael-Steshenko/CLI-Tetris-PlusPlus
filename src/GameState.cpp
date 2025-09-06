@@ -24,15 +24,20 @@ void GameState::update() {
     }
 }
 
-// try to make the current block fall, if it can fall update the row and return true, otherwise lock the block in place and return false
+// try to make the current block fall, if it can fall update the row, otherwise lock the block in place
 void GameState::curBlockTryFall() {
     curBlock.increaseRow();
     array<Point, 4>& coords = curBlock.getCoords();
     for (Point& point: coords) {
+        // reached the bottom
         if (point.getRow() >= ROWS) {
             lockInFallingBlock();
-        } else if (stateArray[point.getRow()][point.getCol()]) {    // this is dangerous, no bound checks for col
+            return;
+        }
+        // reached another block
+        else if (stateArray[point.getRow()][point.getCol()]) {    // this is dangerous, no bound checks for col
             lockInFallingBlock();
+            return;
         }
     }
 }
@@ -133,8 +138,8 @@ void GameState::drawSymbols(const array<Point, 4>& coords, const string& symbolT
         if (!SHOW_HIDDEN_ROWS) {
             rowOffset = HIDDEN_ROWS;
         }
-        // for example, when SHOW_HIDDEN_ROWS == false, a point at 3,3, should be drawn at 1, 3
-        moveCursor(point.getRow() + borderTopWidth - rowOffset, point.getCol() + borderLeftWidth);
+        // for example, when SHOW_HIDDEN_ROWS == false, a point at 3,3, should be drawn at 1,3
+        moveCursor(point.getRow() + borderTopWidth - rowOffset, point.getCol() * blockWidth + borderLeftWidth);
         cout << symbolToDraw;
     }
 }
